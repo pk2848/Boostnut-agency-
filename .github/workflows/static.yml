@@ -39,7 +39,7 @@ jobs:
         run: npm ci
       - name: Build Angular app
         run: npx ng build --base-href /Boostnut-agency-/
-      - name: Copy index.html to 404.html for SPA routing
+      - name: Prepare deployment files
         run: |
           cp dist/boostnut/browser/index.html dist/boostnut/browser/404.html
           touch dist/boostnut/browser/.nojekyll
