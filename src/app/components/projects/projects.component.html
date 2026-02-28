@@ -1,0 +1,55 @@
+<section id="projects" class="relative py-24 px-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <span class="text-blue-500 text-sm font-semibold tracking-wider uppercase">Our Portfolio</span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mt-3 mb-4">
+        Featured <span class="gradient-text">Projects</span>
+      </h2>
+      <p class="text-gray-400 max-w-xl mx-auto">
+        Explore our latest work that showcases innovation and technical excellence.
+      </p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (project of projects; track project.title; let i = $index) {
+        <div
+          #card
+          class="project-card opacity-0 translate-y-8 group relative rounded-2xl overflow-hidden cursor-none transition-all duration-500"
+          [style.transition-delay]="(i * 100) + 'ms'"
+          (mousemove)="onCardMouseMove($event, card)"
+          (mouseleave)="onCardMouseLeave(card)"
+        >
+          <!-- Card gradient background -->
+          <div [class]="'h-48 bg-gradient-to-br ' + project.gradient + ' opacity-80 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center'">
+            <div class="text-6xl opacity-30 group-hover:opacity-50 transition-opacity duration-300 group-hover:scale-110 transform">
+              @switch (project.category) {
+                @case ('AI Solutions') { 🤖 }
+                @case ('Web Development') { 🌐 }
+                @case ('Automation') { ⚡ }
+                @case ('UI/UX Design') { 🎨 }
+              }
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-6 glass">
+            <span class="text-xs text-blue-400 font-medium tracking-wider uppercase">
+              {{ project.category }}
+            </span>
+            <h3 class="text-lg font-bold mt-2 mb-2 text-white group-hover:text-blue-400 transition-colors duration-300">
+              {{ project.title }}
+            </h3>
+            <p class="text-gray-400 text-sm leading-relaxed">
+              {{ project.description }}
+            </p>
+          </div>
+
+          <!-- Hover overlay -->
+          <div class="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-colors duration-300"></div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
