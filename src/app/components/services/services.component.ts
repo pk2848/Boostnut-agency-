@@ -81,7 +81,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
     );
 
     document.querySelectorAll('.service-card').forEach((card) => {
-      this.observer!.observe(card);
+      this.observer?.observe(card);
     });
   }
 

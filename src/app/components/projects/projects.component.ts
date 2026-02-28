@@ -89,7 +89,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
     );
 
     document.querySelectorAll('.project-card').forEach((card) => {
-      this.observer!.observe(card);
+      this.observer?.observe(card);
     });
   }
 

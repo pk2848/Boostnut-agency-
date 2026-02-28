@@ -8,7 +8,7 @@ A fully 3D animated, production-ready agency website built with **Angular**, **T
 
 - **Three.js 3D Scene** – Rotating glowing sphere with floating particles in the hero section
 - **Mouse Interactive Camera** – Camera movement responds to mouse position
-- **Scroll-Triggered Animations** – GSAP-powered smooth section reveals
+- **Scroll-Triggered Animations** – IntersectionObserver-powered smooth section reveals (GSAP available for advanced animations)
 - **Glassmorphism UI** – Modern glass-effect cards and navbar
 - **3D Tilt Cards** – Interactive service and project cards with tilt on hover
 - **Custom Animated Cursor** – Dot + trail cursor with hover effects
@@ -23,7 +23,7 @@ A fully 3D animated, production-ready agency website built with **Angular**, **T
 |---|---|
 | Angular (standalone components) | Frontend framework |
 | Three.js | 3D WebGL scenes |
-| GSAP | Scroll & transition animations |
+| GSAP | Animation library (available for advanced animations) |
 | Tailwind CSS v3 | Utility-first styling |
 | TypeScript | Type safety |
 
