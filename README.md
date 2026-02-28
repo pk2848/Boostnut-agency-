@@ -1,59 +1,102 @@
-# Boostnut
+# BoostNut – 3D Digital Growth Studio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.0.
+A fully 3D animated, production-ready agency website built with **Angular**, **Three.js**, **GSAP**, and **Tailwind CSS**.
 
-## Development server
+![BoostNut Hero](https://github.com/user-attachments/assets/9a42a96a-920b-433d-84ac-1de2e66c9ae3)
 
-To start a local development server, run:
+## 🚀 Features
 
-```bash
-ng serve
+- **Three.js 3D Scene** – Rotating glowing sphere with floating particles in the hero section
+- **Mouse Interactive Camera** – Camera movement responds to mouse position
+- **Scroll-Triggered Animations** – GSAP-powered smooth section reveals
+- **Glassmorphism UI** – Modern glass-effect cards and navbar
+- **3D Tilt Cards** – Interactive service and project cards with tilt on hover
+- **Custom Animated Cursor** – Dot + trail cursor with hover effects
+- **Scroll Progress Bar** – Top progress indicator
+- **Animated Counters** – Number counters that animate on scroll
+- **Responsive Design** – Fully mobile-friendly with hamburger menu
+- **Dark Futuristic Theme** – Neon blue + purple gradient design
+
+## 🛠 Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Angular (standalone components) | Frontend framework |
+| Three.js | 3D WebGL scenes |
+| GSAP | Scroll & transition animations |
+| Tailwind CSS v3 | Utility-first styling |
+| TypeScript | Type safety |
+
+## 📁 Project Structure
+
+```
+src/app/
+├── components/
+│   ├── navbar/         # Glass sticky navbar with mobile menu
+│   ├── hero/           # Full-screen 3D WebGL hero section
+│   ├── services/       # 3D tilt service cards
+│   ├── projects/       # Interactive project portfolio
+│   ├── why-boostnut/   # Stats with animated counters
+│   ├── contact/        # Glassmorphism contact form
+│   ├── cursor/         # Custom animated cursor
+│   └── scroll-progress/# Top scroll progress bar
+├── app.ts              # Root component
+├── app.html            # App template
+└── app.config.ts       # App configuration
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🏁 Getting Started
 
-## Code scaffolding
+### Prerequisites
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js 18+
+- npm 9+
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Installation
 
 ```bash
-ng generate --help
+# Clone the repository
+git clone https://github.com/pk2848/Development-agency.git
+cd Development-agency
+
+# Install dependencies
+npm install
+
+# Start development server
+npm start
 ```
 
-## Building
+Navigate to `http://localhost:4200/`. The application will auto-reload on file changes.
 
-To build the project run:
+### Build for Production
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts are stored in the `dist/` directory.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Run Tests
 
 ```bash
-ng test
+npm test
 ```
 
-## Running end-to-end tests
+## 🎨 Design Theme
 
-For end-to-end (e2e) testing, run:
+- **Background**: Dark (#0a0a0a)
+- **Primary**: Neon Blue (#2563eb)
+- **Accent**: Purple gradient (#7c3aed)
+- **Effects**: Glassmorphism, glow borders, smooth transitions
 
-```bash
-ng e2e
-```
+## 🌐 Deployment
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Deploy to any static hosting:
 
-## Additional Resources
+- **Netlify**: Connect GitHub repo, set build command to `npm run build`, publish directory to `dist/boostnut/browser`
+- **Vercel**: Import repo, framework preset Angular
+- **Firebase**: `firebase init hosting` → `firebase deploy`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
