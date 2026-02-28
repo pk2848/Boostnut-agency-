@@ -30,7 +30,19 @@ body {
   color: #ffffff;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   overflow-x: hidden;
-  cursor: none;
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+/* Restore default cursor on touch/mobile devices */
+@media (pointer: coarse), (max-width: 768px) {
+  .cursor-none {
+    cursor: auto !important;
+  }
 }
 
 /* Glassmorphism utility */
