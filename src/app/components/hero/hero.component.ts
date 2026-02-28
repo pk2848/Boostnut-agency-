@@ -35,7 +35,11 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (!this.isBrowser) return;
-    this.initThreeJS();
+    try {
+      this.initThreeJS();
+    } catch (e) {
+      console.warn('Three.js initialization failed:', e);
+    }
     window.addEventListener('mousemove', this.onMouseMove);
     window.addEventListener('resize', this.onResize);
   }
