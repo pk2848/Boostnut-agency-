@@ -1,0 +1,99 @@
+<div class="erp-layout min-h-screen">
+  <!-- Top Bar -->
+  <header class="erp-header flex items-center justify-between px-6 py-4">
+    <div class="flex items-center gap-3">
+      <span class="text-xl font-black text-white">Boost<span class="text-blue-400">Nut</span></span>
+      <span class="text-xs text-gray-400 border-l border-white/10 pl-3">Student Portal</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-sm text-gray-300">🎓 {{ studentName }}</span>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="p-6 max-w-4xl mx-auto">
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold text-white">My Attendance</h1>
+      <p class="text-sm text-gray-400 mt-1">
+        UID: <code class="text-blue-300">{{ studentUid }}</code>
+        @if (lastRefreshed()) {
+          · Auto-refreshes every 5 s · Last: {{ lastRefreshed() | date:'HH:mm:ss' }}
+        }
+      </p>
+    </div>
+
+    @if (loading()) {
+      <div class="flex items-center justify-center h-40">
+        <div class="spinner"></div>
+        <span class="ml-3 text-gray-400">Loading your records…</span>
+      </div>
+    } @else {
+      <!-- Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="stat-card">
+          <div class="stat-value">{{ presentDays }}</div>
+          <div class="stat-label">Days Present</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ myRecords.length }}</div>
+          <div class="stat-label">Total Scans</div>
+        </div>
+        <div class="stat-card ok-card">
+          <div class="stat-value text-green-400">{{ onTimeCount }}</div>
+          <div class="stat-label">On Time</div>
+        </div>
+        <div class="stat-card late-card">
+          <div class="stat-value text-amber-400">{{ lateCount }}</div>
+          <div class="stat-label">Late Arrivals</div>
+        </div>
+      </div>
+
+      <!-- Last Seen -->
+      <div class="glass-card rounded-xl p-4 mb-6 text-sm text-gray-400">
+        🕐 Last attendance recorded: <strong class="text-white">{{ lastSeen }}</strong>
+      </div>
+
+      <!-- History Table -->
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <div class="px-5 py-4 border-b border-white/5">
+          <h2 class="font-semibold text-white text-sm">Attendance History</h2>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="table-head">
+                <th class="th">#</th>
+                <th class="th">Date</th>
+                <th class="th">Time</th>
+                <th class="th">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (rec of myRecords; track rec.date + rec.time; let i = $index) {
+                <tr class="table-row" [class.late-row]="rec.isLate">
+                  <td class="td text-gray-500">{{ i + 1 }}</td>
+                  <td class="td">{{ rec.date }}</td>
+                  <td class="td font-mono">{{ rec.time }}</td>
+                  <td class="td">
+                    @if (rec.isLate) {
+                      <span class="badge badge-late">Late</span>
+                    } @else {
+                      <span class="badge badge-ok">On Time</span>
+                    }
+                  </td>
+                </tr>
+              }
+              @if (myRecords.length === 0) {
+                <tr>
+                  <td colspan="4" class="td text-center text-gray-500 py-12">
+                    No attendance records found for your UID.
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
+  </main>
+</div>
