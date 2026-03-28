@@ -1,0 +1,102 @@
+<div class="erp-bg min-h-screen flex flex-col items-center justify-center p-4">
+  <!-- Logo/Brand -->
+  <div class="mb-8 text-center">
+    <a routerLink="/" class="text-3xl font-black tracking-tight text-white">
+      Boost<span class="text-blue-400">Nut</span>
+    </a>
+    <p class="text-sm text-gray-400 mt-1">School ERP & Attendance System</p>
+  </div>
+
+  <!-- Card -->
+  <div class="glass-card w-full max-w-md p-8 rounded-2xl">
+    <h1 class="text-2xl font-bold text-white mb-6 text-center">Sign In</h1>
+
+    <!-- Tabs -->
+    <div class="flex rounded-xl overflow-hidden mb-6 bg-white/5">
+      <button
+        class="tab-btn flex-1 py-2 text-sm font-semibold transition-all"
+        [class.active]="tab() === 'admin'"
+        (click)="switchTab('admin')"
+      >
+        🛡️ Admin
+      </button>
+      <button
+        class="tab-btn flex-1 py-2 text-sm font-semibold transition-all"
+        [class.active]="tab() === 'student'"
+        (click)="switchTab('student')"
+      >
+        🎓 Student
+      </button>
+    </div>
+
+    <!-- Error -->
+    @if (error()) {
+      <div class="mb-4 px-4 py-3 rounded-lg bg-red-500/20 border border-red-500/40 text-red-300 text-sm">
+        {{ error() }}
+      </div>
+    }
+
+    <!-- Admin Form -->
+    @if (tab() === 'admin') {
+      <form (ngSubmit)="loginAdmin()" #adminForm="ngForm" class="space-y-4">
+        <div>
+          <label class="form-label">Username</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="admin"
+            [(ngModel)]="adminUsername"
+            name="username"
+            required
+            autocomplete="username"
+          />
+        </div>
+        <div>
+          <label class="form-label">Password</label>
+          <input
+            type="password"
+            class="form-input"
+            placeholder="••••••••"
+            [(ngModel)]="adminPassword"
+            name="password"
+            required
+            autocomplete="current-password"
+          />
+        </div>
+        <button type="submit" class="submit-btn w-full" [disabled]="loading()">
+          @if (loading()) { Signing in… } @else { Sign In as Admin }
+        </button>
+      </form>
+    }
+
+    <!-- Student Form -->
+    @if (tab() === 'student') {
+      <form (ngSubmit)="loginStudent()" #studentForm="ngForm" class="space-y-4">
+        <div>
+          <label class="form-label">RFID Card UID</label>
+          <input
+            type="text"
+            class="form-input"
+            placeholder="e.g. B3EA6756"
+            [(ngModel)]="studentUid"
+            name="uid"
+            required
+            autocomplete="off"
+          />
+          <p class="mt-1 text-xs text-gray-500">Enter the UID printed on your RFID card.</p>
+        </div>
+        <button type="submit" class="submit-btn w-full" [disabled]="loading()">
+          @if (loading()) { Checking… } @else { Access My Attendance }
+        </button>
+      </form>
+    }
+
+    <p class="mt-6 text-center text-xs text-gray-500">
+      Demo credentials — Admin: <code class="text-blue-400">admin / admin123</code>
+    </p>
+  </div>
+
+  <a routerLink="/" class="mt-6 text-sm text-gray-500 hover:text-blue-400 transition-colors">
+    ← Back to BoostNut
+  </a>
+</div>

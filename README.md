@@ -16,6 +16,7 @@ A fully 3D animated, production-ready agency website built with **Angular**, **T
 - **Animated Counters** – Number counters that animate on scroll
 - **Responsive Design** – Fully mobile-friendly with hamburger menu
 - **Dark Futuristic Theme** – Neon blue + purple gradient design
+- **School ERP + RFID Attendance** – Full attendance management system connected to Google Sheets via ESP32 RFID
 
 ## 🛠 Tech Stack
 
@@ -32,17 +33,27 @@ A fully 3D animated, production-ready agency website built with **Angular**, **T
 ```
 src/app/
 ├── components/
-│   ├── navbar/         # Glass sticky navbar with mobile menu
-│   ├── hero/           # Full-screen 3D WebGL hero section
-│   ├── services/       # 3D tilt service cards
-│   ├── projects/       # Interactive project portfolio
-│   ├── why-boostnut/   # Stats with animated counters
-│   ├── contact/        # Glassmorphism contact form
-│   ├── cursor/         # Custom animated cursor
-│   └── scroll-progress/# Top scroll progress bar
-├── app.ts              # Root component
-├── app.html            # App template
-└── app.config.ts       # App configuration
+│   ├── navbar/              # Glass sticky navbar with mobile menu
+│   ├── hero/                # Full-screen 3D WebGL hero section
+│   ├── services/            # 3D tilt service cards
+│   ├── projects/            # Interactive project portfolio
+│   ├── why-boostnut/        # Stats with animated counters
+│   ├── contact/             # Glassmorphism contact form
+│   ├── cursor/              # Custom animated cursor
+│   ├── scroll-progress/     # Top scroll progress bar
+│   ├── landing/             # Landing page wrapper component
+│   └── erp/
+│       ├── login/           # ERP login (admin + student)
+│       ├── admin-dashboard/ # Admin view: table, search, filter, export, chart
+│       └── student-panel/   # Student view: personal attendance history
+├── services/
+│   ├── attendance.service.ts # Fetches RFID records from Google Sheets
+│   └── auth.service.ts       # Session-based authentication
+├── guards/
+│   └── auth.guard.ts         # Route protection
+├── app.routes.ts             # Application routes
+├── app.ts                    # Root component (RouterOutlet)
+└── app.config.ts             # App configuration
 ```
 
 ## 🏁 Getting Started
@@ -88,6 +99,45 @@ npm test
 - **Primary**: Neon Blue (#2563eb)
 - **Accent**: Purple gradient (#7c3aed)
 - **Effects**: Glassmorphism, glow borders, smooth transitions
+
+## 🏫 School ERP – RFID Attendance System
+
+The app includes a built-in School ERP at `/erp/login` for managing RFID-based attendance data stored in Google Sheets.
+
+### Features
+| Feature | Details |
+|---|---|
+| Admin Dashboard | View all records, search by name/UID, filter by date, export CSV, bar chart |
+| Student Panel | Personal attendance history with on-time/late breakdown |
+| Auto-refresh | Data re-fetched from Google Sheets every 5 seconds |
+| Late detection | Entries after 09:00 are highlighted as "Late" |
+| Authentication | Session-based login (admin credentials + student UID lookup) |
+
+### Google Sheets Integration
+
+The ESP32 firmware sends RFID scans to a Google Apps Script endpoint, which writes rows to a sheet named **`RFID_Attendance`** with columns `Date`, `Time`, `UID`, `Name`.
+
+The web app reads data via [opensheet](https://opensheet.elk.sh):
+
+```
+https://opensheet.elk.sh/{SHEET_ID}/RFID_Attendance
+```
+
+**Steps to connect your own sheet:**
+
+1. Create a Google Sheet with sheet name `RFID_Attendance` and the four column headers above.
+2. **Share the sheet publicly** (Viewer access — required for opensheet).
+3. Open `src/app/services/attendance.service.ts` and replace `DEFAULT_SHEET_ID` with your Sheet ID (the long string in the sheet URL).
+4. Optionally add your Apps Script `doGet` handler (see issue body) for write-back.
+
+### Demo credentials
+
+| Role | Credential |
+|---|---|
+| Admin | username: `admin` / password: `admin123` |
+| Student | Enter RFID UID, e.g. `B3EA6756` |
+
+> 💡 To register more students, add entries to the `STUDENT_CARDS` map in `src/app/services/auth.service.ts`.
 
 ## 🌐 Deployment
 
